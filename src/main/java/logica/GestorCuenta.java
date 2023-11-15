@@ -46,18 +46,4 @@ public class GestorCuenta {
         return true;
     }
 
-
-    public static boolean validarNombre(String input) {
-        // La expresión regular permite solo letras mayúsculas y minúsculas
-        String regex = "^[a-zA-Z]+$";
-
-        // Compilar la expresión regular
-        Pattern pattern = Pattern.compile(regex);
-
-        // Crear un objeto Matcher
-        Matcher matcher = pattern.matcher(input);
-
-        // Verificar si la cadena coincide con la expresión regular
-        return matcher.matches();
-    }
 }
