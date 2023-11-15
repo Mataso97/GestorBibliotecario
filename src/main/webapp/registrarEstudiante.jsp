@@ -39,6 +39,13 @@
             <button type="button" class="cancelar" onclick="window.location.href='index.jsp'">Cancelar</button>
         </div>
     </form>
+
+    <% String errorMensaje = (String) session.getAttribute("errorMensaje"); %>
+    <% if (errorMensaje != null && !errorMensaje.isEmpty()) { %>
+    <div class="error-message">
+        <%= errorMensaje %>
+    </div>
+    <% } %>
 </div>
 
 </body>

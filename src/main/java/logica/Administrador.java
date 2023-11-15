@@ -24,13 +24,6 @@ public class Administrador {
 
     public static boolean validarPrestamo(String cedula, String idlibro){
 
-        /*Session session = sessionFactory.openSession();
-
-        List<ClaseEstudiante> listaEstudiante = session.createQuery("FROM ClaseEstudiante ", ClaseEstudiante.class).getResultList();
-        List<ClaseLibro> listaLibros = session.createQuery("FROM ClaseLibro ", ClaseLibro.class).getResultList();
-        session.close();
-
-        return true;*/
         Session session = null;
         Transaction transaction = null;
 
@@ -74,39 +67,5 @@ public class Administrador {
             }
         }
     }
-    public static boolean validarPrestamop(String cedula, String idlibro){
 
-        Session session = null;
-        Transaction transaction = null;
-
-        try {
-
-            session = HibernateUtil.getSessionFactory().openSession();
-            transaction = session.beginTransaction();
-
-            // Realiza la consulta para verificar la existencia de la cédula y el ID
-            System.out.println(cedula);
-            System.out.println(idlibro);
-            Query<ClasePrestamo> query = session.createQuery("FROM ClasePrestamo WHERE cedula = :cedula AND idLibro = :idLibro", ClasePrestamo.class);
-            query.setParameter("cedula", cedula);
-            query.setParameter("idLibro", idlibro);
-
-            ClasePrestamo resultado = query.uniqueResult();
-
-            transaction.commit();
-
-            // Si se encuentra la entidad, entonces la cédula y el ID son válidos
-            return resultado != null;
-        } catch (Exception e) {
-            if (transaction != null) {
-                transaction.rollback();
-            }
-            e.printStackTrace();
-            return false;
-        } finally {
-            if (session != null) {
-                session.close();
-            }
-        }
-    }
 }

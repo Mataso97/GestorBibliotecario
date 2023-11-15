@@ -75,5 +75,7 @@ public class ClasePrestamo {
         this.multa = multa;
     }
 
-
+    public static boolean solicitarPrestamo(String cedula, String idLibro){
+        return Administrador.validarPrestamo(cedula, idLibro);
+    }
 }

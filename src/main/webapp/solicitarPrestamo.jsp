@@ -68,7 +68,7 @@
             <tbody>
             <%
                 List<ClaseLibro> listaLibros = (List) request.getSession().getAttribute("listaLibros");
-                listaLibros = RegistroBibliotecario.validarLibros(listaLibros);
+                listaLibros = RegistroBibliotecario.verificarLibrosDisponibles(listaLibros);
                 for (ClaseLibro libro : listaLibros) {
             %>
             <tr>

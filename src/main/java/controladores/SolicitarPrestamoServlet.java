@@ -47,13 +47,12 @@ public class SolicitarPrestamoServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String cedula = request.getParameter("cedula");
         String idLibro = request.getParameter("idLibro");
-
-        if (!Administrador.validarPrestamo(cedula, idLibro)) {
-            HttpSession session = request.getSession();
+        HttpSession session = request.getSession();
+        if (!ClasePrestamo.solicitarPrestamo(cedula, idLibro)) {
             session.setAttribute("errorMensaje", "Error: Cédula o ID de libro inválidos.");
             response.sendRedirect("solicitarPrestamo.jsp");
-            return;
         }else {
+            session.setAttribute("errorMensaje", null);
             Date fechaPrestamo = Date.valueOf(LocalDate.now());
             Date fechaDevolucion = Date.valueOf(LocalDate.now().plusDays(15));
             boolean multa = false;
@@ -67,10 +66,10 @@ public class SolicitarPrestamoServlet extends HttpServlet {
             prestamo.setMulta(multa);
 
             // Guardar el estudiante utilizando Hibernate
-            try (Session session = sessionFactory.openSession()) {
-                session.beginTransaction();
-                session.save(prestamo); // Guardar el estudiante en la base de datos
-                session.getTransaction().commit();
+            try (Session sessionSave = sessionFactory.openSession()) {
+                sessionSave.beginTransaction();
+                sessionSave.save(prestamo); // Guardar el estudiante en la base de datos
+                sessionSave.getTransaction().commit();
             } catch (Exception e) {
                 e.printStackTrace();
                 // Manejar el error, por ejemplo, redirigir a una página de error
@@ -79,7 +78,6 @@ public class SolicitarPrestamoServlet extends HttpServlet {
             }
             doGet(request, response);
         }
-
     }
 
     @Override
