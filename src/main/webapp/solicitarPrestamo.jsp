@@ -33,15 +33,21 @@
             <tbody>
             <%
                 List<ClaseEstudiante> listaEstudiantes = (List) request.getSession().getAttribute("listaEstudiantes");
-                for (ClaseEstudiante estudiante : listaEstudiantes){
+                for (ClaseEstudiante estudiante : listaEstudiantes) {
             %>
             <tr>
-                <td><%=estudiante.getCedula()%></td>
-                <td><%=estudiante.getNombre()%></td>
-                <td><%=estudiante.getDireccion()%></td>
-                <td><%=estudiante.getTelefono()%></td>
-                <td><%=estudiante.getCodigoUnico()%></td>
-                <td><%=estudiante.getCorreoElectronico()%></td>
+                <td><%=estudiante.getCedula()%>
+                </td>
+                <td><%=estudiante.getNombre()%>
+                </td>
+                <td><%=estudiante.getDireccion()%>
+                </td>
+                <td><%=estudiante.getTelefono()%>
+                </td>
+                <td><%=estudiante.getCodigoUnico()%>
+                </td>
+                <td><%=estudiante.getCorreoElectronico()%>
+                </td>
             </tr>
             <% }%>
             </tbody>
@@ -62,14 +68,20 @@
             <tbody>
             <%
                 List<ClaseLibro> listaLibros = (List) request.getSession().getAttribute("listaLibros");
-                for (ClaseLibro libro : listaLibros){
+                listaLibros = RegistroBibliotecario.validarLibros(listaLibros);
+                for (ClaseLibro libro : listaLibros) {
             %>
             <tr>
-                <td><%=libro.getIdLibro()%></td>
-                <td><%=libro.getTitulo()%></td>
-                <td><%=libro.getAutor()%></td>
-                <td><%=libro.getGenero()%></td>
-                <td><%=libro.getDisponibilidad()%></td>
+                <td><%=libro.getIdLibro()%>
+                </td>
+                <td><%=libro.getTitulo()%>
+                </td>
+                <td><%=libro.getAutor()%>
+                </td>
+                <td><%=libro.getGenero()%>
+                </td>
+                <td><%=libro.getDisponibilidad()%>
+                </td>
             </tr>
             <% }%>
             </tbody>
@@ -94,6 +106,13 @@
         </form>
     </div>
 
+    <% String errorMensaje = (String) session.getAttribute("errorMensaje"); %>
+    <% if (errorMensaje != null && !errorMensaje.isEmpty()) { %>
+    <div class="error-message">
+        <%= errorMensaje %>
+    </div>
+    <% } %>
+
     <table class="loans-table">
         <!-- Tabla de Préstamos -->
         <caption>Prestamos</caption>
@@ -109,20 +128,25 @@
         <tbody>
         <%
             List<ClasePrestamo> listaPrestamos = (List) request.getSession().getAttribute("listaPrestamos");
-            for (ClasePrestamo prestamo : listaPrestamos){
+            for (ClasePrestamo prestamo : listaPrestamos) {
         %>
         <tr>
-            <td><%=prestamo.getCedula()%></td>
-            <td><%=prestamo.getIdLibro()%></td>
-            <td><%=prestamo.getFechaPrestamo()%></td>
-            <td><%=prestamo.getFechaDevolucion()%></td>
-            <td><%=prestamo.getMulta()%></td>
+            <td><%=prestamo.getCedula()%>
+            </td>
+            <td><%=prestamo.getIdLibro()%>
+            </td>
+            <td><%=prestamo.getFechaPrestamo()%>
+            </td>
+            <td><%=prestamo.getFechaDevolucion()%>
+            </td>
+            <td><%=prestamo.getMulta()%>
+            </td>
         </tr>
         <% }%>
         </tbody>
     </table>
 
-    <p> </p>
+    <p></p>
 
     <div class="buttons-container">
         <button type="button" class="return-button" onclick="window.location.href='index.jsp'">Regresar</button>

@@ -75,33 +75,5 @@ public class ClasePrestamo {
         this.multa = multa;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
 
-        ClasePrestamo prestamo = (ClasePrestamo) o;
-
-        if (idPrestamo != prestamo.idPrestamo) return false;
-        if (cedula != null ? !cedula.equals(prestamo.cedula) : prestamo.cedula != null) return false;
-        if (idLibro != null ? !idLibro.equals(prestamo.idLibro) : prestamo.idLibro != null) return false;
-        if (fechaPrestamo != null ? !fechaPrestamo.equals(prestamo.fechaPrestamo) : prestamo.fechaPrestamo != null)
-            return false;
-        if (fechaDevolucion != null ? !fechaDevolucion.equals(prestamo.fechaDevolucion) : prestamo.fechaDevolucion != null)
-            return false;
-        if (multa != null ? !multa.equals(prestamo.multa) : prestamo.multa != null) return false;
-
-        return true;
-    }
-
-    @Override
-    public int hashCode() {
-        int result = idPrestamo;
-        result = 31 * result + (cedula != null ? cedula.hashCode() : 0);
-        result = 31 * result + (idLibro != null ? idLibro.hashCode() : 0);
-        result = 31 * result + (fechaPrestamo != null ? fechaPrestamo.hashCode() : 0);
-        result = 31 * result + (fechaDevolucion != null ? fechaDevolucion.hashCode() : 0);
-        result = 31 * result + (multa != null ? multa.hashCode() : 0);
-        return result;
-    }
 }

@@ -47,30 +47,39 @@ public class SolicitarPrestamoServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String cedula = request.getParameter("cedula");
         String idLibro = request.getParameter("idLibro");
-        Date fechaPrestamo = Date.valueOf(LocalDate.now());
-        Date fechaDevolucion = Date.valueOf(LocalDate.now().plusDays(15));
-        boolean multa = false;
 
-        // Crear un nuevo objeto ClaseEstudiante
-        ClasePrestamo prestamo = new ClasePrestamo();
-        prestamo.setCedula(cedula);
-        prestamo.setIdLibro(idLibro);
-        prestamo.setFechaPrestamo(fechaPrestamo);
-        prestamo.setFechaDevolucion(fechaDevolucion);
-        prestamo.setMulta(multa);
-
-        // Guardar el estudiante utilizando Hibernate
-        try (Session session = sessionFactory.openSession()) {
-            session.beginTransaction();
-            session.save(prestamo); // Guardar el estudiante en la base de datos
-            session.getTransaction().commit();
-        } catch (Exception e) {
-            e.printStackTrace();
-            // Manejar el error, por ejemplo, redirigir a una página de error
-            response.sendRedirect("error.jsp");
+        if (!Administrador.validarPrestamo(cedula, idLibro)) {
+            HttpSession session = request.getSession();
+            session.setAttribute("errorMensaje", "Error: Cédula o ID de libro inválidos.");
+            response.sendRedirect("solicitarPrestamo.jsp");
             return;
+        }else {
+            Date fechaPrestamo = Date.valueOf(LocalDate.now());
+            Date fechaDevolucion = Date.valueOf(LocalDate.now().plusDays(15));
+            boolean multa = false;
+
+            // Crear un nuevo objeto ClaseEstudiante
+            ClasePrestamo prestamo = new ClasePrestamo();
+            prestamo.setCedula(cedula);
+            prestamo.setIdLibro(idLibro);
+            prestamo.setFechaPrestamo(fechaPrestamo);
+            prestamo.setFechaDevolucion(fechaDevolucion);
+            prestamo.setMulta(multa);
+
+            // Guardar el estudiante utilizando Hibernate
+            try (Session session = sessionFactory.openSession()) {
+                session.beginTransaction();
+                session.save(prestamo); // Guardar el estudiante en la base de datos
+                session.getTransaction().commit();
+            } catch (Exception e) {
+                e.printStackTrace();
+                // Manejar el error, por ejemplo, redirigir a una página de error
+                response.sendRedirect("error.jsp");
+                return;
+            }
+            doGet(request, response);
         }
-        doGet(request, response);
+
     }
 
     @Override
