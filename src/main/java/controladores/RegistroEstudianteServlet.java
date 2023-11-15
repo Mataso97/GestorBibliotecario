@@ -5,6 +5,7 @@ import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 import logica.ClaseEstudiante;
+import logica.GestorCuenta;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
@@ -26,29 +27,31 @@ public class RegistroEstudianteServlet extends HttpServlet {
         String telefono = request.getParameter("telefono");
         String codigo = request.getParameter("codigo");
         String correo = request.getParameter("correo");
+        HttpSession session = request.getSession();
 
         // Crear un nuevo objeto ClaseEstudiante
-        ClaseEstudiante estudiante = new ClaseEstudiante();
-        estudiante.setCedula(cedula);
-        estudiante.setNombre(nombre);
-        estudiante.setDireccion(direccion);
-        estudiante.setTelefono(telefono);
-        estudiante.setCodigoUnico(codigo);
-        estudiante.setCorreoElectronico(correo);
+        ClaseEstudiante estudiante = GestorCuenta.nuevoRegistro(cedula, nombre, direccion, telefono, codigo, correo);
 
-        // Guardar el estudiante utilizando Hibernate
-        try (Session session = sessionFactory.openSession()) {
-            session.beginTransaction();
-            session.save(estudiante); // Guardar el estudiante en la base de datos
-            session.getTransaction().commit();
-        } catch (Exception e) {
-            e.printStackTrace();
-            // Manejar el error, por ejemplo, redirigir a una página de error
-            response.sendRedirect("error.jsp");
-            return;
+        if (estudiante != null){
+            session.setAttribute("errorMensaje", null);
+            // Guardar el estudiante utilizando Hibernate
+            try (Session sessionSave = sessionFactory.openSession()) {
+                sessionSave.beginTransaction();
+                sessionSave.save(estudiante); // Guardar el estudiante en la base de datos
+                sessionSave.getTransaction().commit();
+            } catch (Exception e) {
+                e.printStackTrace();
+                // Manejar el error, por ejemplo, redirigir a una página de error
+                response.sendRedirect("error.jsp");
+                return;
+            }
+            // Redireccionar a una página de éxito después de guardar en la base de datos
+            response.sendRedirect("index.jsp");
+        }else {
+            session.setAttribute("errorMensaje", "Error: dato invalido.");
+            response.sendRedirect("registrarEstudiante.jsp");
         }
-        // Redireccionar a una página de éxito después de guardar en la base de datos
-        response.sendRedirect("index.jsp");
+
     }
 
     @Override

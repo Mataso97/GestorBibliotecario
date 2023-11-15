@@ -28,6 +28,7 @@ label {
     margin-bottom: 8px;
 }
 
+
 input {
     width: 100%;
     padding: 8px;
@@ -54,3 +55,5 @@ button {
 button.cancelar {
     background-color: #f44336;
 }
+
+

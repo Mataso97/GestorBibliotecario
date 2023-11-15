@@ -19,7 +19,7 @@ public class ClaseLibro {
     private String genero;
     @Basic
     @Column(name = "disponibilidad", nullable = true)
-    private Byte disponibilidad;
+    private Boolean disponibilidad;
 
     public String getIdLibro() {
         return idLibro;
@@ -53,11 +53,11 @@ public class ClaseLibro {
         this.genero = genero;
     }
 
-    public Byte getDisponibilidad() {
+    public Boolean getDisponibilidad() {
         return disponibilidad;
     }
 
-    public void setDisponibilidad(Byte disponibilidad) {
+    public void setDisponibilidad(Boolean disponibilidad) {
         this.disponibilidad = disponibilidad;
     }
 
