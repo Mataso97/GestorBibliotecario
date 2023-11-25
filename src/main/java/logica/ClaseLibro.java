@@ -136,4 +136,21 @@ public class ClaseLibro {
         return libro;
     }
 
+    public static boolean ingresarLibro(ClaseLibro libro){
+        boolean valido = true;
+        if(libro.getIdLibro().length() != 3){
+            valido = false;
+        }
+        if (!(libro.getDisponibilidad() == true || libro.getDisponibilidad() == false)) {
+            valido = false;
+        }
+        if (libro.getIdLibro() == null || libro.getTitulo() == null || libro.getAutor() == null || libro.getGenero() == null) {
+            valido = false;
+        }if (!libro.getIdLibro().matches("\\d+")) {
+            valido = false;
+        }
+
+        return valido;
+    }
+
 }

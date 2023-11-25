@@ -14,14 +14,20 @@
 
     <div class="section">
         <h2>Registrar Estudiante</h2>
-        <p class="description">Descripción del proceso de registro de estudiante.</p>
+        <p class="description">En esta sección se puede ingresar un nuevo estudiante al sistema de la biblioteca.</p>
         <button class="btn" onclick="window.location.href='registrarEstudiante.jsp'">Registrar</button>
+    </div>
+
+    <div class="section">
+        <h2>Registrar Libro</h2>
+        <p class="description">En esta sección se puede ingresar un nuevo libro al sistema de la biblioteca.</p>
+        <button class="btn" onclick="window.location.href='registrarLibro.jsp'">Registrar</button>
     </div>
 
     <div class="section">
         <form action="solicitarPrestamo" method="get">
             <h2>Solicitud de Préstamo</h2>
-            <p class="description">Descripción del proceso de solicitud de préstamo.</p>
+            <p class="description">En esta sección se puede realizar un nuevo prestamo de un libro por estudiante.</p>
             <button class="btn" onclick="window.location.href='solicitarPrestamo.jsp'">Solicitar</button>
         </form>
     </div>

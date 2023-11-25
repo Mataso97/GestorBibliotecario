@@ -69,7 +69,9 @@
             <%
                 List<ClaseLibro> listaLibros = (List) request.getSession().getAttribute("listaLibros");
                 listaLibros = ClaseLibro.verificarLibrosDisponibles(listaLibros);
+                String disponibilidad;
                 for (ClaseLibro libro : listaLibros) {
+                    disponibilidad = libro.getDisponibilidad() ? "Si" : "No";
             %>
             <tr>
                 <td><%=libro.getIdLibro()%>
@@ -80,7 +82,7 @@
                 </td>
                 <td><%=libro.getGenero()%>
                 </td>
-                <td><%=libro.getDisponibilidad()%>
+                <td><%=disponibilidad%>
                 </td>
             </tr>
             <% }%>
@@ -128,7 +130,9 @@
         <tbody>
         <%
             List<ClasePrestamo> listaPrestamos = (List) request.getSession().getAttribute("listaPrestamos");
+            String multa;
             for (ClasePrestamo prestamo : listaPrestamos) {
+                multa = prestamo.getMulta() ? "Si" : "No";
         %>
         <tr>
             <td><%=prestamo.getCedula()%>
@@ -139,7 +143,7 @@
             </td>
             <td><%=prestamo.getFechaDevolucion()%>
             </td>
-            <td><%=prestamo.getMulta()%>
+            <td><%=multa%>
             </td>
         </tr>
         <% }%>
